@@ -1,0 +1,12 @@
+.modal__header{
+    text-align: right;
+    margin: 10px 20px 0 0;
+}
+
+.modal__footer{
+    text-align: center;
+    margin: 0 42% 30px 42%;
+    padding: 5px 0 5px 0;
+    border: solid black 1px;
+    border-radius: 10%;
+}

@@ -1,0 +1,14 @@
+.header__logo{    
+    /* 크기 */
+    font-size: 2.5rem;
+    font-weight: 1000;
+
+    /* 위치 */
+    align-items: center;   
+    margin: 0 0 0 20px;
+
+    /* 색상 */
+    background-color: white;
+    color: #28cdc8;
+    border: none;
+}
