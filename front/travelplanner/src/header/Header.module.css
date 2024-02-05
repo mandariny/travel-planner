@@ -18,26 +18,22 @@
 
         /* 위치 */
         padding: 0.7rem 0;
-        display: flex;
-        justify-content : left;   
     }
 }
 
 @media (max-width: 750px) {
     .header {
         /* 크기 */
-        width: 1200px;
+        width: 750px;
 
         /* 위치 */
         padding: 0.7rem 0;
-        display: flex;
-        justify-content : left; 
     }
 }
 
 .header__content{    
     /* 크기 */
-    min-width: 700px;
+    min-width: 750px;
     width: 1180px;
 
     /* 위치 */

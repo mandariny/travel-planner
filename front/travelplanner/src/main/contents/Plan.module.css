@@ -1,0 +1,14 @@
+.contents {
+    /* 위치 */
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    /* 크기 */
+    width: 100%;
+    height: 400px;
+}
+
+.contents::-webkit-scrollbar{
+    display: none;
+}
