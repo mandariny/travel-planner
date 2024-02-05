@@ -1,0 +1,49 @@
+.card {
+    /* 크기 */
+    width: 100%;
+    height:fit-content;
+    margin: 10px;
+    padding: 0;
+    border: solid black 1px;
+    border-radius: 3%;
+    box-sizing: content-box;
+}
+
+.img{
+    width: inherit;
+    height: 240px;
+    border-radius: 3% 3% 0 0;
+    margin: 0;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.title{
+    overflow: hidden;
+    width: 70%;
+    font-size: 2rem;
+}
+
+.star{
+    align-self:self-end;
+}
+
+.line{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.total{
+    width: 380px;
+    margin: 10px;
+}
+
+.button{
+    margin-left: 10px;
+}

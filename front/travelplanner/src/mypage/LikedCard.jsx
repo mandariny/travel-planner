@@ -1,8 +1,11 @@
-import classes from './PlanCard.module.css'
+import classes from "./LikedCard.module.css"
 
-const PlanCard = (props) => {
+const LikedCard = (props) => {
     return (
-        <>
+        <div className={classes.total}>
+            <div className={classes.line}>
+                <div className={classes.button}>삭제</div>
+            </div>
             <div className={classes.card} onClick={() => {window.location.reload();}}>
                 <img src={props.img} className={classes.img}/>
                 <div className={classes.content}>
@@ -10,9 +13,8 @@ const PlanCard = (props) => {
                     <div className={classes.star}>⭐{props.star}</div>
                 </div>
             </div>
-
-        </>
+        </div>
     )
 }
 
-export default PlanCard
+export default LikedCard

@@ -3,6 +3,7 @@ import './App.css';
 import Header from './header/Header';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from './main/Main';
+import MyPage from './mypage/MyPage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Header/>
         <Routes>
           <Route exact path="/" element={<Main/>} />
+          <Route exact path="/MyPage" element={<MyPage/>} />
         </Routes>
       </BrowserRouter>
     </>
