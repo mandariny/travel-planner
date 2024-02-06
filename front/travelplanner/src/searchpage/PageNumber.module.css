@@ -1,0 +1,8 @@
+.button_clicked {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.button {
+    margin: 10px;
+}

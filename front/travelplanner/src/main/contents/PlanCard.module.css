@@ -1,8 +1,8 @@
 .card {
     /* 크기 */
-    width: 400px;
+    width: 388px;
     height:fit-content;
-    margin: 10px;
+    margin: 0 10px 10px 0;
     padding: 0;
     border: solid black 1px;
     border-radius: 3%;
