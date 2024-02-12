@@ -18,4 +18,9 @@ public class DummyUserService implements UserService{
     public void join(UserSaveRequest userSaveRequest) {
       log.info("DummyUserService Call");
     }
+
+    @Override
+    public Long getCurrentUserId() {
+        return 1L;
+    }
 }

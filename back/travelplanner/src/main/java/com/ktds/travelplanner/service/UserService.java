@@ -9,4 +9,6 @@ public interface UserService {
     TokenResponse login(LoginRequest loginRequest);
 
     void join(UserSaveRequest userSaveRequest);
+
+    Long getCurrentUserId();
 }

@@ -18,6 +18,7 @@ CREATE TABLE `plan` (
 	`intro` varchar(255)	NULL,
 	`image` varchar(255)	NULL,
 	`likes` int DEFAULT 0,
+	`update_time` timestamp DEFAULT CURRENT_TIMESTAMP,
 	`member_id` int NOT NULL,
 	FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE CASCADE
 );
