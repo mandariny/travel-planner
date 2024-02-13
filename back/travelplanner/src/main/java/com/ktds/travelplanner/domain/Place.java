@@ -16,7 +16,7 @@ public class Place {
     private String placeAddr;
 
     public Place(PathInfo info) {
-        this.placeName = info.getPlaceName();
-        this.placeAddr = info.getPlaceAddr();
+        this.placeName = info.getName();
+        this.placeAddr = info.getAddr();
     }
 }

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PathInfo {
     private Integer pathOrder;
-    private String placeName;
-    private String placeAddr;
+    private String name;
+    private String addr;
 }

@@ -12,4 +12,8 @@
         where member_id = #{currentUserId}
         order by update_time desc
     </select>
+    <select id="findThemesByPlanId" resultType="theme" parameterType="Long">
+        select * from theme
+        where plan_id = #{planId}
+    </select>
 </mapper>

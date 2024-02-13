@@ -10,6 +10,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/plan")
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class PlanController {
     }
 
     @GetMapping("/clone/{id}")
-    public ResponseEntity<Void> clonePlan(@PathVariable("id") Long planId){
+    public ResponseEntity<Void> clonePlan(@PathVariable("id") Long planId) throws IOException {
         planService.clonePlan(planId);
         return ResponseEntity.ok().build();
     }

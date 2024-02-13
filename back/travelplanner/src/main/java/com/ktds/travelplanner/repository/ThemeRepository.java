@@ -17,4 +17,8 @@ public class ThemeRepository {
     public void saveThemes(Theme theme) {
         sql.insert("Theme.save", theme);
     }
+
+    public List<Theme> findAllByPlanId(Long planId) {
+        return sql.selectList("Theme.findThemesByPlanId", planId);
+    }
 }

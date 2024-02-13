@@ -12,13 +12,19 @@ public class Plan {
     private Long id;
     private String title;
     private String intro;
-    private String imgPath;
+    private String image;
     private Long writerId;
 
     public Plan(PlanSaveRequest planSaveRequest, Long userId){
         this.title = planSaveRequest.getTitle();
         this.intro = planSaveRequest.getIntro();
-        this.imgPath = planSaveRequest.getImage();
+        this.image = planSaveRequest.getImage();
         this.writerId = userId;
+    }
+
+    public Plan(String title, String intro, String image){
+        this.title = title;
+        this.intro = intro;
+        this.image = image;
     }
 }

@@ -1,6 +1,5 @@
 package com.ktds.travelplanner.domain;
 
-import com.ktds.travelplanner.dto.ThemeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,13 +9,13 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class Theme {
+public class Like {
     private Long id;
-    private String content;
+    private Long memberId;
     private Long planId;
 
-    public Theme(ThemeInfo info, Long planId) {
-        this.content = info.getThemeName();
+    public Like(Long memberId, Long planId) {
+        this.memberId = memberId;
         this.planId = planId;
     }
 }

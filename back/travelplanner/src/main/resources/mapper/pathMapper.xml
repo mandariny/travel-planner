@@ -11,4 +11,16 @@
         select id, name, addr from place
         where addr = #{placeAddr}
     </select>
+    <select id="findPathsByPlanId" resultType="pathInfo" parameterType="Long">
+        select p.path_order, l.name, l.addr
+        from path p
+        left join place l
+        on p.place_id = l.id
+        where p.plan_id = #{planId}
+        order by 1
+    </select>
+    <select id="findAllPathByPlanId" resultType="path" parameterType="Long">
+        select * from path
+        where place_id = #{placeId}
+    </select>
 </mapper>

@@ -5,7 +5,7 @@
 <mapper namespace="Plan">
     <insert id="save" parameterType="plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into plan(title, intro, image, member_id)
-        values(#{title}, #{intro}, #{imgPath}, #{writerId})
+        values(#{title}, #{intro}, #{image}, #{writerId})
     </insert>
     <select id="findAllMyPlans" resultType="thumbnail" parameterType="Long">
         select id, title, image, likes from plan
@@ -28,4 +28,34 @@
         from plan
         where image = #{fileName}
     </select>
+    <select id="findPlanDetail" resultType="detail" parameterType="Long">
+        select id, title, intro, image, likes, update_time, member_id
+        from plan
+        where id = #{planId}
+    </select>
+    <select id="findLikedPlans" resultType="thumbnail">
+        select id, title, image, likes
+        from plan
+        order by likes desc
+        limit 5;
+    </select>
+    <select id="findCurrentPlans" resultType="thumbnail">
+        select id, title, image, likes
+        from plan
+        order by update_time desc
+        limit 5;
+    </select>
+    <select id="findById" resultType="plan" parameterType="Long">
+        select title, intro, image
+        from plan
+        where id = #{planId}
+    </select>
+    <update id="increaseLike" parameterType="Long">
+        update plan set likes = likes + 1
+        where id = #{planId}
+    </update>
+    <update id="decreaseLike" parameterType="Long">
+        update plan set likes = likes - 1
+        where id = #{planId} and likes > 0
+    </update>
 </mapper>

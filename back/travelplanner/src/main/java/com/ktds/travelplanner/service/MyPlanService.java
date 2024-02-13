@@ -5,7 +5,7 @@ import com.ktds.travelplanner.domain.Place;
 import com.ktds.travelplanner.domain.Plan;
 import com.ktds.travelplanner.domain.Theme;
 import com.ktds.travelplanner.dto.*;
-import com.ktds.travelplanner.exception.CanNotSavePlan;
+import com.ktds.travelplanner.exception.CanNotSavePlanException;
 import com.ktds.travelplanner.repository.MyPlanRepository;
 import com.ktds.travelplanner.repository.PathRepository;
 import com.ktds.travelplanner.repository.PlaceRepository;
@@ -36,7 +36,7 @@ public class MyPlanService {
     private final UserService userService;
     private final File uploadDirFile = new File(IMG_PAHT);
 
-//    @Transactional
+    @Transactional
     public void savePlan(PlanSaveRequest planSaveRequest, MultipartFile image) throws IOException {
         // image 저장
         String fileName = StringUtils.cleanPath(image.getOriginalFilename());
@@ -53,7 +53,7 @@ public class MyPlanService {
         // plan 저장
         Plan plan = new Plan(planSaveRequest, userService.getCurrentUserId());
         Long result = myPlanRepository.savePlan(plan);
-        if(result < 0) throw new CanNotSavePlan();
+        if(result < 0) throw new CanNotSavePlanException();
 
         Long planId = plan.getId();
 
