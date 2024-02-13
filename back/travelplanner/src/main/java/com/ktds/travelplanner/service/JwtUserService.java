@@ -4,29 +4,37 @@ import com.ktds.travelplanner.domain.Member;
 import com.ktds.travelplanner.dto.LoginRequest;
 import com.ktds.travelplanner.dto.TokenResponse;
 import com.ktds.travelplanner.dto.UserSaveRequest;
-import lombok.extern.slf4j.Slf4j;
+import com.ktds.travelplanner.exception.NonExistAccountException;
+import com.ktds.travelplanner.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
-public class DummyUserService implements UserService{
+@RequiredArgsConstructor
+@Primary
+public class JwtUserService implements UserService{
+    private final UserRepository userRepository;
+
     @Override
     public TokenResponse login(LoginRequest loginRequest) {
-        return new TokenResponse(1L, "token123");
+        return null;
     }
 
     @Override
     public void join(UserSaveRequest userSaveRequest) {
-      log.info("DummyUserService Call");
+
     }
 
     @Override
     public Long getCurrentUserId() {
-        return 1L;
+        return null;
     }
 
     @Override
     public Member getByCredentials(String loginId, String passwd) {
-        return null;
+        Member member = userRepository.getByLoginId(loginId);
+        if(!member.getPassword().equals(passwd)) throw new NonExistAccountException();
+        return member;
     }
 }

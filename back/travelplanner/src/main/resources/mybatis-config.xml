@@ -11,6 +11,7 @@
         <typeAlias type="com.ktds.travelplanner.domain.Plan" alias="plan"></typeAlias>
         <typeAlias type="com.ktds.travelplanner.domain.Theme" alias="theme"></typeAlias>
         <typeAlias type="com.ktds.travelplanner.domain.Like" alias="likePlan"></typeAlias>
+        <typeAlias type="com.ktds.travelplanner.domain.Member" alias="member"></typeAlias>
         <typeAlias type="com.ktds.travelplanner.dto.PlanThumbnailResponse" alias="thumbnail"></typeAlias>
         <typeAlias type="com.ktds.travelplanner.dto.PlanDetailResponse" alias="detail"></typeAlias>
         <typeAlias type="com.ktds.travelplanner.dto.PathInfo" alias="pathInfo"></typeAlias>

@@ -1,5 +1,6 @@
 package com.ktds.travelplanner.service;
 
+import com.ktds.travelplanner.domain.Member;
 import com.ktds.travelplanner.dto.LoginRequest;
 import com.ktds.travelplanner.dto.TokenResponse;
 import com.ktds.travelplanner.dto.UserSaveRequest;
@@ -11,4 +12,6 @@ public interface UserService {
     void join(UserSaveRequest userSaveRequest);
 
     Long getCurrentUserId();
+
+    Member getByCredentials(String loginId, String passwd);
 }
