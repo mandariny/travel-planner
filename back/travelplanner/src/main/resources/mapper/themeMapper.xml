@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Theme">
+    <insert id="save" parameterType="theme">
+        insert into theme(content, plan_id)
+        values(#{content}, #{planId})
+    </insert>
+    <select id="findThemes" resultType="thumbnail" parameterType="Long">
+        select id, title, image, likes from plan
+        where member_id = #{currentUserId}
+        order by update_time desc
+    </select>
+</mapper>

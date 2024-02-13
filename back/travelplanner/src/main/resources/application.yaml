@@ -6,7 +6,6 @@ spring:
       local:
         - mysql
         - mybatis
-        - encoding
 
 ---
 
@@ -19,20 +18,6 @@ spring:
     url: jdbc:mysql://localhost:3306/travel_planner?useSSL=false&serverTimezone=Asia/Seoul
     username: root
     password: 1234
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: encoding
-  http:
-    encoding:
-      charset=UTF-8
-    enabled:
-      true
-    force:
-      true
 
 ---
 

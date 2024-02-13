@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Place">
+    <insert id="save" parameterType="place" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into place(name, addr)
+        values(#{placeName}, #{placeAddr})
+    </insert>
+    <select id="findByAddr" resultType="place" parameterType="String">
+        select id, name, addr from place
+        where addr = #{placeAddr}
+    </select>
+</mapper>

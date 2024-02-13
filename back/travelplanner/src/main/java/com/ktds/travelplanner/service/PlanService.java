@@ -3,8 +3,10 @@ package com.ktds.travelplanner.service;
 import com.ktds.travelplanner.dto.PlanDetailResponse;
 import com.ktds.travelplanner.dto.PlanListResponse;
 import com.ktds.travelplanner.dto.PlanSaveRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class PlanService {
 
 

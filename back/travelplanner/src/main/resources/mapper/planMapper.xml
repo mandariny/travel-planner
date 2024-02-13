@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Plan">
+    <insert id="save" parameterType="plan" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into plan(title, intro, image, member_id)
+        values(#{title}, #{intro}, #{imgPath}, #{writerId})
+    </insert>
+    <select id="findAllMyPlans" resultType="thumbnail" parameterType="Long">
+        select id, title, image, likes from plan
+        where member_id = #{currentUserId}
+        order by update_time desc
+    </select>
+    <select id="findAllLikesPlans" resultType="thumbnail" parameterType="Long">
+        select p.id, p.title, p.image, p.likes
+        from plan p
+        join liked_plan l
+        on p.id = l.plan_id
+        where l.member_id = #{currentUserId}
+        order by update_time desc
+    </select>
+    <delete id="delete" parameterType="Long">
+        delete from plan where id=#{planId}
+    </delete>
+    <select id="imagePathExist" resultType="boolean" parameterType="String">
+        select IF(COUNT(*) >= 1, 1, 0)
+        from plan
+        where image = #{fileName}
+    </select>
+</mapper>

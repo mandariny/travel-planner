@@ -30,6 +30,7 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> unhandledExceptionHandler(final Exception exception){
         log.warn(exception.getMessage());
+        exception.printStackTrace();
         return ResponseEntity
                 .internalServerError()
                 .body(new ErrorResponse(ERROR_MESSAGE));

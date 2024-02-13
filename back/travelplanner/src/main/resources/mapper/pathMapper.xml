@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Path">
+    <insert id="save" parameterType="path" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into path(path_order, plan_id, place_id)
+        values(#{pathOrder}, #{planId}, #{placeId})
+    </insert>
+    <select id="findByAddrdfsdf" resultType="place" parameterType="String">
+        select id, name, addr from place
+        where addr = #{placeAddr}
+    </select>
+</mapper>

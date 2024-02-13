@@ -4,17 +4,18 @@ import com.ktds.travelplanner.domain.Path;
 import com.ktds.travelplanner.domain.Place;
 import com.ktds.travelplanner.domain.Plan;
 import com.ktds.travelplanner.domain.Theme;
+import com.ktds.travelplanner.dto.PlanListResponse;
 
 import java.util.List;
 
 public interface MyPlanRepository {
     Long savePlan(Plan plan);
 
-    void saveThemes(List<Theme> themes);
+    PlanListResponse findAllMyPlans(Long currentUserId);
 
-    void savePlaces(List<Place> places);
+    PlanListResponse findAllLikedPlans(Long currentUserId);
 
-    List<Place> findByAddr(List<Place> places);
+    void deleteMyPlan(Long planId);
 
-    void savePath(List<Path> paths);
+    boolean imagePathExist(String fileName);
 }

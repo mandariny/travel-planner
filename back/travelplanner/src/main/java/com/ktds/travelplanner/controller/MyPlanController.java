@@ -21,7 +21,7 @@ public class MyPlanController {
     @PostMapping()
     public ResponseEntity<?> savePlan(@RequestParam(value = "title") String title,
                                       @RequestParam(value = "intro") String intro,
-                                      @RequestParam(value = "image") MultipartFile image,
+                                      @RequestParam(value = "image", required = false) MultipartFile image,
                                       @RequestParam(value = "themes") String[] themes,
                                       @RequestParam(value = "placeNames") String[] placeNames,
                                       @RequestParam(value = "placeAddrs") String[] placeAddrs) throws Exception{
@@ -29,6 +29,9 @@ public class MyPlanController {
         if(!image.isEmpty()) checkFileValidation(image);
 
         PlanSaveRequest planSaveRequest = new PlanSaveRequest(title, intro, image, themes, placeNames, placeAddrs);
+
+        System.out.println(planSaveRequest);
+
         myPlanService.savePlan(planSaveRequest, image);
 
         return ResponseEntity.ok().build();

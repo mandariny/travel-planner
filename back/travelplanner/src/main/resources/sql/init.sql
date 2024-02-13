@@ -54,8 +54,7 @@ CREATE TABLE `theme` (
 );
 
 -- 샘플 데이터 삽입
-INSERT INTO user (login_id, password, nickname)
+INSERT INTO member (login_id, password, nickname)
 VALUES
     ('sohee123', 'qqww123', 'sohee'),
     ('sohee1122', 'qqww123', 'sohee2');
-
