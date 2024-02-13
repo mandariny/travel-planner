@@ -58,4 +58,9 @@
         update plan set likes = likes - 1
         where id = #{planId} and likes > 0
     </update>
+    <select id="searchPlan" resultType="thumbnail" parameterType="String">
+        select id, title, image, likes from plan
+        where title like concat('%', #{searchWord}, '%') or intro like concat('%', #{searchWord}, '%')
+        order by update_time desc
+    </select>
 </mapper>

@@ -56,9 +56,6 @@ public class PlanService {
         // 플랜
         Plan plan = planRepository.findById(planId);
 
-        plan.setWriterId(userService.getCurrentUserId());
-        myPlanRepository.savePlan(plan);
-
         // 이미지
         String sourceFileName = IMG_PAHT + "\\" + plan.getImage();
         String destinationFile = IMG_PAHT + "\\";
@@ -70,6 +67,9 @@ public class PlanService {
         java.nio.file.Path newFilePath = destinationPath.resolve(newFileName);
         Files.copy(sourcePath, newFilePath);
 
+        plan.setWriterId(userService.getCurrentUserId());
+        plan.setImage(newFileName);
+        myPlanRepository.savePlan(plan);
 
         List<Theme> themes = themeRepository.findAllByPlanId(planId);
         List<Path> paths = pathRepository.findAllPathByPlanId(planId);
@@ -95,7 +95,7 @@ public class PlanService {
     }
 
     public PlanListResponse findSearchedPlans(String searchWord) {
-        return null;
+        return new PlanListResponse(planRepository.searchPlans(searchWord));
     }
 
     @Transactional

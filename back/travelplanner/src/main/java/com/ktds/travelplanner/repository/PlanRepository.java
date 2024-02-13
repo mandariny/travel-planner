@@ -2,6 +2,7 @@ package com.ktds.travelplanner.repository;
 
 import com.ktds.travelplanner.domain.Plan;
 import com.ktds.travelplanner.dto.PlanDetailResponse;
+import com.ktds.travelplanner.dto.PlanListResponse;
 import com.ktds.travelplanner.dto.PlanThumbnailResponse;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -35,5 +36,9 @@ public class PlanRepository {
 
     public void decreaseLike(Long planId){
         sql.update("decreaseLike", planId);
+    }
+
+    public List<PlanThumbnailResponse> searchPlans(String searchWord) {
+        return sql.selectList("Plan.searchPlan", searchWord);
     }
 }

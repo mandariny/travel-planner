@@ -15,7 +15,7 @@ spring:
       on-profile: mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/travel_planner?useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/travel_planner?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
     username: root
     password: 1234
 
