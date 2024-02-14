@@ -3,6 +3,7 @@ package com.ktds.travelplanner.service;
 import com.ktds.travelplanner.domain.Member;
 import com.ktds.travelplanner.dto.LoginRequest;
 import com.ktds.travelplanner.dto.TokenResponse;
+import com.ktds.travelplanner.dto.UserSaveRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,15 @@ public class DummyMemberService implements MemberService {
     @Override
     public Member getByCredentials(String loginId, String passwd) {
         return null;
+    }
+
+    @Override
+    public void checkDuplicateId(String loginId) {
+
+    }
+
+    @Override
+    public void checkDuplicateNickname(String nickname) {
+
     }
 }

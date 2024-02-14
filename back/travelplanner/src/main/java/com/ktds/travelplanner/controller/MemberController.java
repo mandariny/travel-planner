@@ -42,14 +42,16 @@ public class MemberController {
     }
 
     @PostMapping("/join/id")
-    public ResponseEntity<Void> checkDuplicateId(@RequestBody @Valid final UserSaveRequest userSaveRequest){
-//        userService.join(userSaveRequest);
+    public ResponseEntity<Void> checkDuplicateId(@RequestBody @Valid final String loginId){
+        log.info("input loginId : " + loginId);
+        userService.checkDuplicateId(loginId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/join/nickname")
-    public ResponseEntity<Void> checkDuplicate(@RequestBody @Valid final UserSaveRequest userSaveRequest){
-//        userService.join(userSaveRequest);
+    public ResponseEntity<Void> checkDuplicate(@RequestBody @Valid final String nickname){
+        log.info("input nickname : " + nickname);
+        userService.checkDuplicateNickname(nickname);
         return ResponseEntity.ok().build();
     }
 }

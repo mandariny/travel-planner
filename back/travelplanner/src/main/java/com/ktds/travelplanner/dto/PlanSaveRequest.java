@@ -31,4 +31,5 @@ public class PlanSaveRequest {
             paths.add(new PathInfo(i, names[i], addrs[i]));
         }
     }
+
 }

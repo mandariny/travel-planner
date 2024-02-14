@@ -17,8 +17,7 @@ public class PlaceRepository {
         sql.insert("Place.save", place);
     }
 
-    public Place findByAddr(String placeAddr) {
-        return sql.selectOne("Place.findByAddr", placeAddr);
+    public Place findByPosition(Place place) {
+        return sql.selectOne("Place.findByPosition", place);
     }
-
 }

@@ -7,7 +7,7 @@
         insert into place(name, addr)
         values(#{placeName}, #{placeAddr})
     </insert>
-    <select id="findByAddr" resultType="place" parameterType="String">
+    <select id="findByPosition" resultType="place" parameterType="place">
         select id, name, addr from place
         where addr = #{placeAddr}
     </select>

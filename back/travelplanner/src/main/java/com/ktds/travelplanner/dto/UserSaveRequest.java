@@ -14,7 +14,6 @@ import static com.ktds.travelplanner.dto.ValidatorMessage.*;
 @AllArgsConstructor
 public class UserSaveRequest {
 
-    @NotBlank(message = EMPTY_MESSAGE)
     @Pattern(regexp = USER_ID_FORMAT, message = USER_ID_MESSAGE)
     private String loginId;
 

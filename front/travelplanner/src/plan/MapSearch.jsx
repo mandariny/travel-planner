@@ -5,7 +5,8 @@ import classes from './MapSearch.module.css'
 const MapSearch=()=>{
     const [inputWord, setInputWord] = useState('방배 케이티디에스')
     const inputRef = useRef('방배 케이티디에스')
-    const [pathList, setPathList] = useState([])
+    const [titleList, setTitleList] = useState([])
+    const [roadAddressList, setRoadAddressList] = useState([])
 
     var markers = [];
 
@@ -41,6 +42,8 @@ const MapSearch=()=>{
             // 정상적으로 검색이 완료됐으면
             // 검색 목록과 마커를 표출합니다
             displayPlaces(data);
+
+            // console.log("data !!" + JSON.stringify(data, null, 2))
     
             // 페이지 번호를 표출합니다
             displayPagination(pagination);
@@ -66,7 +69,7 @@ const MapSearch=()=>{
         fragment = document.createDocumentFragment(), 
         bounds = new kakao.maps.LatLngBounds(), 
         listStr = '';
-        
+
         // 검색 결과 목록에 추가된 항목들을 제거합니다
         removeAllChildNods(listEl);
     
@@ -87,7 +90,7 @@ const MapSearch=()=>{
             // 마커와 검색결과 항목에 mouseover 했을때
             // 해당 장소에 인포윈도우에 장소명을 표시합니다
             // mouseout 했을 때는 인포윈도우를 닫습니다
-            (function(marker, title) {
+            (function(marker, title, address, road_address) {
                 kakao.maps.event.addListener(marker, 'mouseover', function() {
                     displayInfowindow(marker, title);
                 });
@@ -97,7 +100,7 @@ const MapSearch=()=>{
                 });
 
                 kakao.maps.event.addListener(marker, 'click', function() {
-                    addMapInfo(title);
+                    addMapInfo(title, address, road_address);
                 })
     
                 itemEl.onmouseover =  function () {
@@ -109,9 +112,9 @@ const MapSearch=()=>{
                 };
 
                 itemEl.onclick = function () {
-                    addMapInfo(title);
+                    addMapInfo(title, address, road_address);
                 };
-            })(marker, places[i].place_name);
+            })(marker, places[i].place_name, places[i].address_name, places[i].road_address_name);
     
             fragment.appendChild(itemEl);
         }
@@ -217,10 +220,10 @@ const MapSearch=()=>{
         infowindow.open(map, marker);
     }
 
-    function addMapInfo(title){
-        console.log(title)
-        setPathList([...pathList, title]);
-        console.log("hmm..." + pathList)
+    function addMapInfo(title, address, road_address){
+        console.log(title + " : " + address + " : " + road_address)
+        setTitleList([...titleList, { title: title, address: address}]);
+        // console.log("경로 탐색 : " + titleList [1])
     }
     
      // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -259,23 +262,43 @@ const MapSearch=()=>{
     
     
     return (
-        <div className={classes.map_wrap}>
-        <div id="map" style={{width: '500px', height: '500px', position: 'relative', overflow: 'hidden'}}></div>
+        <div className={classes.box}>
+            <div className={classes.map_wrap}>
+                <div id="map" style={{width: '700px', height: '500px', position: 'relative', overflow: 'hidden'}}></div>
 
-        <div id="menu_wrap" className={classes.bg_white}>
-            <div className={classes.option}>
-                <div>
-                    <form onSubmit={onSubmitHander}>
-                        키워드 : <input ref={inputRef} /> 
-                        <button type="submit">검색</button> 
-                    </form>
+                <div id="menu_wrap" className={classes.bg_white}>
+                    <div className={classes.option}>
+                        <div>
+                            <form onSubmit={onSubmitHander}>
+                                키워드 : <input ref={inputRef} /> 
+                                <button type="submit">검색</button> 
+                            </form>
+                        </div>
+                    </div>
+                    <hr/>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
                 </div>
             </div>
-            <hr/>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
+            <div className={classes.path_infos}>
+                <ul>
+                    {/* useState로 관리하는 리스트를 반복하여 출력합니다. */}
+                    {titleList.map((item, index) => (
+                        <ul className={classes.path_box}>
+                            <div className={classes.path_list}>
+                                <li className={classes.list_title}>{item.title}</li>
+                                <li>{item.address}</li>
+                            </div>
+                            <div>
+                                <div className={classes.list_buttons}>🔺</div>
+                                <div className={classes.list_buttons}>🔻</div>
+                                <div className={classes.list_buttons}>✖</div>
+                            </div>
+                        </ul>
+                    ))}
+                </ul>
+            </div>
         </div>
-    </div>
     )
 }
 

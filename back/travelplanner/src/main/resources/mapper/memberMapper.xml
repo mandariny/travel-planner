@@ -11,4 +11,14 @@
         select * from member
         where login_id = #{loginId}
     </select>
+    <select id="isDuplicatedId" resultType="boolean" parameterType="String">
+        select IF(COUNT(*) >= 1, 1, 0)
+        from member
+        where login_id = #{loginId}
+    </select>
+    <select id="isDuplicatedNickname" resultType="boolean" parameterType="String">
+        select IF(COUNT(*) >= 1, 1, 0)
+        from member
+        where nickname = #{nickname}
+    </select>
 </mapper>

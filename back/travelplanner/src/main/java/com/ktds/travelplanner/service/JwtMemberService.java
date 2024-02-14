@@ -3,6 +3,8 @@ package com.ktds.travelplanner.service;
 import com.ktds.travelplanner.domain.Member;
 import com.ktds.travelplanner.dto.LoginRequest;
 import com.ktds.travelplanner.dto.TokenResponse;
+import com.ktds.travelplanner.dto.UserSaveRequest;
+import com.ktds.travelplanner.exception.DuplicatedIdException;
 import com.ktds.travelplanner.exception.NonExistAccountException;
 import com.ktds.travelplanner.repository.MemberRepository;
 import com.ktds.travelplanner.security.TokenProvider;
@@ -27,6 +29,9 @@ public class JwtMemberService implements MemberService {
 
     @Override
     public TokenResponse join(Member member) {
+        checkDuplicateId(member.getLoginId());
+        checkDuplicateNickname(member.getNickname());
+
         userRepository.save(member);
         if(member == null) throw new NonExistAccountException();
 
@@ -45,5 +50,15 @@ public class JwtMemberService implements MemberService {
         Member member = userRepository.getByLoginId(loginId);
         if(member == null || !member.getPassword().equals(passwd)) throw new NonExistAccountException();
         return member;
+    }
+
+    @Override
+    public void checkDuplicateId(String loginId) {
+        if( userRepository.isDuplicatedId(loginId)) throw new DuplicatedIdException();
+    }
+
+    @Override
+    public void checkDuplicateNickname(String nickname) {
+        if( userRepository.isDuplicatedNickname(nickname)) throw new DuplicatedIdException();
     }
 }

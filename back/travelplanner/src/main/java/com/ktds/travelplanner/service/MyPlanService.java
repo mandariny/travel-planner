@@ -70,7 +70,7 @@ public class MyPlanService {
         List<PathInfo> pathInfos = planSaveRequest.getPaths();
         for(PathInfo info : pathInfos){
             Place place = new Place(info);
-            place = placeRepository.findByAddr(place.getPlaceAddr());
+            place = placeRepository.findByPosition(place);
             if(place == null){
                 place = new Place(info);
                 placeRepository.savePlaces(place);

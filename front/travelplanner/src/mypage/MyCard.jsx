@@ -1,6 +1,8 @@
 import classes from './MyCard.module.css'
 
 const MyCard = (props) => {
+    
+
     return (
         <div className={classes.total}>
             <div className={classes.line}>

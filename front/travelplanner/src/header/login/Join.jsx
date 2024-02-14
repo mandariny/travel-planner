@@ -5,6 +5,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 const Join = () => {
+    const BASE_URL = 'http://localhost:8080/api/auth/join'
+
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [nickname, setNickname] = useState('');
@@ -21,56 +23,63 @@ const Join = () => {
         setNickname(e.target.value);
     };
 
-    const handleIdCheck = () => {
-        // 여기서 id 중복 확인 로직을 추가하면 됩니다.
-        console.log('아이디 중복 확인:', id);
-    };
-
-    const handleNicknameCheck = () => {
-        // 여기서 닉네임 중복 확인 로직을 추가하면 됩니다.
-        console.log('닉네임 중복 확인:', nickname);
-    };
-
-    const handleSubmit = (e) => {
+    const handleIdCheck = async (e) => {
         e.preventDefault();
 
-        // 여기서 회원가입 로직을 추가하면 됩니다.
-        console.log('회원가입 정보:', { id, password, nickname });
+        await fetch(BASE_URL + "/id", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: id
+        }).then((res) => {
+            if(res.ok) window.alert("사용 가능한 아이디입니다.");
+            else window.alert("중복된 아이디입니다.");
+        })
+    };
+
+    const handleNicknameCheck = async (e) => {
+        e.preventDefault();
+
+        await fetch(BASE_URL + "/nickname", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: nickname
+        }).then((res) => {
+            if(res.ok) window.alert("사용 가능한 닉네임입니다.");
+            else window.alert("중복된 닉네임입니다.");
+        })
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        await fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                loginId: id,
+                password: password,
+                nickname: nickname
+            })
+        }).then((res) => {
+            if(res.ok){
+                res.json().then((res2 => {
+                    sessionStorage.setItem('USER', res2.accessToken);
+                    window.location.reload();
+                }))
+            }else{
+                window.alert("회원가입 실패");
+            }
+        })
     };
 
     return (
         <>
-            {/* <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                <Form.Control
-                placeholder="id"
-                aria-label="id"
-                aria-describedby="basic-addon2"
-                />
-                <Button variant="outline-secondary" id="button-addon2">
-                중복확인
-                </Button>
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-                <Form.Control
-                placeholder="nickname"
-                aria-label="nickname"
-                aria-describedby="basic-addon2"
-                />
-                <Button variant="outline-secondary" id="button-addon2">
-                중복확인
-                </Button>
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-                <Form.Control
-                placeholder="password"
-                aria-label="password"
-                aria-describedby="basic-addon2"
-                />
-            </InputGroup> */}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>ID: </label>

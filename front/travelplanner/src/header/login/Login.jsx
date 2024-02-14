@@ -30,7 +30,7 @@ const Login = () => {
         }).then((res) => {
             if(res.ok){
                 res.json().then((res2 => {
-                    sessionStorage.setItem('USER', res2.id);
+                    sessionStorage.setItem('USER', res2.accessToken);
                     window.location.reload();
                 }))
             }else{
@@ -51,21 +51,6 @@ const Login = () => {
 
     return (
         <>
-            {/* <InputGroup className="mb-3">
-                <Form.Control
-                placeholder="id"
-                aria-label="id"
-                aria-describedby="basic-addon2"
-                />
-            </InputGroup>
-
-            <InputGroup className="mb-3">
-                <Form.Control
-                placeholder="password"
-                aria-label="password"
-                aria-describedby="basic-addon2"
-                />
-            </InputGroup> */}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>ID: </label>

@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/", "/api/plan/**", "/api/auth/**").permitAll()
+                                .requestMatchers("/", "/api/plan/**", "/api/auth/**", "/api/auth/join/**").permitAll()
                                 .anyRequest().authenticated())
                 .cors(httpSecurityCorsConfigurer ->
                         httpSecurityCorsConfigurer

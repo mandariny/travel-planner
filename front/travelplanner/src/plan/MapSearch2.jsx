@@ -3,8 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import classes from './MapSearch.module.css'
 
 const MapSearch=()=>{
-    const [inputWord, setInputWord] = useState('케이티디에스')
-    const inputRef = useRef('케이티디에스')
+    const [inputWord, setInputWord] = useState('방배 케이티디에스')
+    const inputRef = useRef('방배 케이티디에스')
+    const [pathList, setPathList] = useState([])
 
     var markers = [];
 
@@ -96,7 +97,7 @@ const MapSearch=()=>{
                 });
 
                 kakao.maps.event.addListener(marker, 'click', function() {
-                    addMapInfo(marker, title);
+                    addMapInfo(title);
                 })
     
                 itemEl.onmouseover =  function () {
@@ -108,7 +109,7 @@ const MapSearch=()=>{
                 };
 
                 itemEl.onclick = function () {
-                    addMapInfo(marker, title);
+                    addMapInfo(title);
                 };
             })(marker, places[i].place_name);
     
@@ -214,11 +215,12 @@ const MapSearch=()=>{
     
         infowindow.setContent(content);
         infowindow.open(map, marker);
-        // console.log(content)
     }
 
-    function addMapInfo(marker, title){
+    function addMapInfo(title){
         console.log(title)
+        setPathList([...pathList, title]);
+        console.log("hmm..." + pathList)
     }
     
      // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -230,7 +232,6 @@ const MapSearch=()=>{
 
     const onSubmitHander = e => {
         e.preventDefault();
-        console.log(inputRef.current.value)
         setInputWord(inputRef.current.value)
     }
 

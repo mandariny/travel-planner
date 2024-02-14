@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/" element={<Main/>} />
           <Route exact path="/mypage" element={<MyPage/>} />
           <Route exact path="/search" element={<SearchPage />} />
-          <Route exact path="plan" element={<PlanForm/>} />
+          <Route exact path="/plan" element={<PlanForm/>} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const LogoutButton = () => {
     return (
         <>
@@ -6,7 +8,7 @@ const LogoutButton = () => {
 
                 window.location.reload();
             }}>
-                로그아웃
+                <Link to="/">로그아웃</Link>
             </div>
             
         </>
