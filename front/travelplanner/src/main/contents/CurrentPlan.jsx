@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PlanCard from "./PlanCard"
 import classes from './Plan.module.css'
 
 const CurrentPlan = () => {
+    const BASE_URL = 'http://localhost:8080/api/plan/current'
+    const IMAGE_BASE_URL = 'img/'
+
     const [currentCards, setCurrentCards] = useState([
         {title: "1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title", content: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111", img: "img/jjanggu.jpg", star: "1234"},
         {title: "2title", content: "222222222222222", img: "img/jjanggu.jpg", star: "1111"},
@@ -11,8 +14,24 @@ const CurrentPlan = () => {
         {title: "5title", content: "555555555555555", img: "img/jjanggu.jpg", star: "42"}
     ])
 
+    useEffect(() => {
+        const fetchCurrentInfo = async () => {
+            await fetch(BASE_URL).then((res) => {
+                if(res.ok){
+                    res.json().then((res2) => {
+                        setCurrentCards(res2.plans);
+                        console.log(res2);
+                    })
+                }
+            });
+        }
+        fetchCurrentInfo().catch(error => {
+            console.log(error);
+        })
+    }, []);
+
     const currentCardList = currentCards.map((value) => (
-        <PlanCard title={value.title} img={value.img} star={value.star}/>
+        <PlanCard title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
     ));
 
     return (

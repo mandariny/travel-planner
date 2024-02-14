@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
-    <insert id="save" parameterType="theme">
-        insert into theme(content, plan_id)
-        values(#{content}, #{planId})
+    <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into member(login_id, password, nickname)
+        values(#{loginId}, #{password}, #{nickname})
     </insert>
     <select id="getByLoginId" resultType="member" parameterType="String">
         select * from member

@@ -20,7 +20,7 @@ public class UserSaveRequest {
 
     @NotBlank(message =  EMPTY_MESSAGE)
     @Pattern(regexp = USER_PW_FORMAT, message = USER_PW_MESSAGE)
-    private String passwd;
+    private String password;
 
     @NotBlank(message = EMPTY_MESSAGE)
     private String nickname;

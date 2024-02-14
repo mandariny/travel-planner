@@ -6,9 +6,10 @@ import com.ktds.travelplanner.dto.TokenResponse;
 import com.ktds.travelplanner.dto.UserSaveRequest;
 import com.ktds.travelplanner.exception.NonExistAccountException;
 import com.ktds.travelplanner.security.TokenProvider;
-import com.ktds.travelplanner.service.UserService;
+import com.ktds.travelplanner.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 @Validated
-public class UserController {
-    private final UserService userService;
+@Slf4j
+@CrossOrigin("*")
+public class MemberController {
+    private final MemberService userService;
     private final TokenProvider tokenProvider;
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody final LoginRequest loginRequest){
-        Member member = userService.getByCredentials(loginRequest.getLoginId(), loginRequest.getPasswd());
+        Member member = userService.getByCredentials(loginRequest.getId(), loginRequest.getPassword());
 
         if(member == null) throw new NonExistAccountException();
 
@@ -34,8 +37,19 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<Void> join(@RequestBody @Valid final UserSaveRequest userSaveRequest){
-        userService.join(userSaveRequest);
+    public ResponseEntity<TokenResponse> join(@RequestBody @Valid final Member member){
+        return ResponseEntity.ok().body(userService.join(member));
+    }
+
+    @PostMapping("/join/id")
+    public ResponseEntity<Void> checkDuplicateId(@RequestBody @Valid final UserSaveRequest userSaveRequest){
+//        userService.join(userSaveRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/join/nickname")
+    public ResponseEntity<Void> checkDuplicate(@RequestBody @Valid final UserSaveRequest userSaveRequest){
+//        userService.join(userSaveRequest);
         return ResponseEntity.ok().build();
     }
 }

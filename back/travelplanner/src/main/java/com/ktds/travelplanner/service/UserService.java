@@ -1,17 +1,12 @@
 package com.ktds.travelplanner.service;
 
-import com.ktds.travelplanner.domain.Member;
-import com.ktds.travelplanner.dto.LoginRequest;
-import com.ktds.travelplanner.dto.TokenResponse;
-import com.ktds.travelplanner.dto.UserSaveRequest;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public interface UserService {
-    TokenResponse login(LoginRequest loginRequest);
-
-    void join(UserSaveRequest userSaveRequest);
-
-    Long getCurrentUserId();
-
-    Member getByCredentials(String loginId, String passwd);
+public class UserService implements UserDetailsService {
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }

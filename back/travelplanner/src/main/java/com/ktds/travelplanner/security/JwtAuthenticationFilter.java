@@ -32,16 +32,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = parseBearerToken(request);
         log.info("필터 요청 처리중... token : " + token);
 
-        if (token == null || token.equalsIgnoreCase("null")) throw new UnAuthorizedRequestException();
+        try{
+            if (token != null || !token.equalsIgnoreCase("null")){
+                Long memberId = tokenProvider.validateAndGetUserId(token);
+                log.info("인증 완료 memberId : " + memberId);
 
-        Long memberId = tokenProvider.validateAndGetUserId(token);
-        log.info("인증 완료 memberId : " + memberId);
+                AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberId, null, AuthorityUtils.NO_AUTHORITIES);
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+                securityContext.setAuthentication(authentication);
+                SecurityContextHolder.setContext(securityContext);
+            }
 
-        AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberId, null, AuthorityUtils.NO_AUTHORITIES);
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(authentication);
-        SecurityContextHolder.setContext(securityContext);
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
 
         filterChain.doFilter(request, response);
     }

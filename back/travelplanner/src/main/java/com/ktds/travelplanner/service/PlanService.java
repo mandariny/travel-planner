@@ -10,7 +10,6 @@ import com.ktds.travelplanner.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,7 +27,7 @@ public class PlanService {
     private final ThemeRepository themeRepository;
     private final PathRepository pathRepository;
     private final LikeRepository likeRepository;
-    private final UserService userService;
+    private final MemberService userService;
 
     public PlanDetailResponse findPlanDetail(Long planId){
         PlanDetailResponse response = planRepository.findPlanDetail(planId);

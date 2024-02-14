@@ -6,7 +6,7 @@ spring:
       local:
         - mysql
         - mybatis
-        - secret
+        - security
 
 ---
 
@@ -35,6 +35,10 @@ mybatis:
 spring:
   config:
     activate:
-      on-profile: secret
+      on-profile: security
+  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 secret:
   key: NMA8JPctFuna59f5Lkjfwlief19802374183479871923JHFENMA8JPctFuna59f5Lkjfwlief19802374183479871923JHFE
+
+

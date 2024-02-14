@@ -33,7 +33,7 @@ public class MyPlanService {
     private final PlaceRepository placeRepository;
     private final PathRepository pathRepository;
     private final ThemeRepository themeRepository;
-    private final UserService userService;
+    private final MemberService userService;
     private final File uploadDirFile = new File(IMG_PAHT);
 
     @Transactional

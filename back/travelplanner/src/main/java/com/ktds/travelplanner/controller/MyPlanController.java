@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/me/plan")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin("*")
 public class MyPlanController {
     private final MyPlanService myPlanService;
 

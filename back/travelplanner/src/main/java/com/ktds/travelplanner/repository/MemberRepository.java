@@ -7,10 +7,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepository {
+public class MemberRepository {
     private final SqlSessionTemplate sql;
 
     public Member getByLoginId(String loginId) {
         return sql.selectOne("Member.getByLoginId", loginId);
+    }
+
+    public void save(Member member) {
+        sql.insert("Member.save", member);
     }
 }

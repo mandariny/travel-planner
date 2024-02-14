@@ -16,6 +16,7 @@ import java.io.IOException;
 @RequestMapping("/api/plan")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin("*")
 public class PlanController {
     private final PlanService planService;
 
