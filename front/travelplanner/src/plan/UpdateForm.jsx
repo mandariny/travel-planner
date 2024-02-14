@@ -7,9 +7,11 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import classes from './PlanForm.module.css'
 import classes2 from './MapSearch.module.css'
+import { useParams } from 'react-router-dom';
 
-const PlanForm = () => {
+const UpdateForm = () => {
     const navigate = useNavigate();
+    const {id} = useParams();
 
     const [inputWord, setInputWord] = useState('방배 케이티디에스')
     const inputRef = useRef('방배 케이티디에스')
@@ -302,24 +304,18 @@ const PlanForm = () => {
         setFile(event.target.files[0]);
       };
 
-    const BASE_URL = 'http://localhost:8080/api/me/plan'
+    const BASE_URL = 'http://localhost:8080/api/me/plan/update'
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        console.log("저장한다 ! " + titleList.map(item => item.title))
+
         const formData = new FormData();
+        formData.append('id', id);
         formData.append('image', file);
         formData.append('data', 
         new  Blob([
-            // JSON.stringify({
-            //     'title': titleText,
-            //     'intro' : introText,
-            //     'themes' : JSON.stringify(themeValue),
-            //     'placeNames' : JSON.stringify(titleList),
-            //     'placeAddrs' : JSON.stringify(addressList),
-            //     'placeX' : JSON.stringify(x),
-            //     'placeY' : JSON.stringify(y)
-            // })
             JSON.stringify({
                 'title': titleText,
                 'intro' : introText,
@@ -328,14 +324,6 @@ const PlanForm = () => {
                 'placeAddrs' : titleList.map(item => item.address)
             })
         ], {type: 'application/json'}))
-
-        // formData.append();
-        // formData.append('intro', introText);
-        // formData.append('themes', JSON.stringify(themeValue));
-        // formData.append('placeNames', JSON.stringify(titleList));
-        // formData.append('placeAddrs', JSON.stringify(addressList));
-        // formData.append('placeX', JSON.stringify(x));
-        // formData.append('placeY', JSON.stringify(y));
 
         await fetch(BASE_URL, {
             method: 'POST',
@@ -352,21 +340,33 @@ const PlanForm = () => {
         }).catch((error) => {
             console.log("실패!!!!!!! " + error)
         })
-
-        // try {
-        //     await axios
-        //       .post(BASE_URL, formData, {
-        //         headers: {
-        //         'Authorization': `Bearer ${sessionStorage.getItem('USER')}`,
-        //           "Content-Type": `multipart/form-data`,
-        //         },
-        //       })
-        //       .then((res) => console.log(res));
-        //   } catch (e) {
-        //     console.log(e)
-        //   }
     
       };
+
+      useEffect(() => {
+        const fetchDetailInfo = async () => {
+            await fetch ('http://localhost:8080/api/plan/' + id).then((res) => {
+                if(res.ok){
+                    res.json().then((res2) => {
+                        console.log("path" + JSON.stringify(res2.paths, null, 2))
+                        console.log("themes" + JSON.stringify(res2.themes, null, 2))
+                        console.log("image" + JSON.stringify(res2.image, null, 2))
+                        console.log("title" + JSON.stringify(res2.title))
+                        setTitleText(res2.title);
+                        setIntroText(res2.intro);
+                        setFile(res2.image);
+                        setThemeValue(res2.themes);
+                        setTitleList(res2.paths);
+                        console.log("djlsfkdjf " + titleList[0].name)
+                    })
+                }
+            })
+        }
+        fetchDetailInfo().catch(error => {
+            console.log(error);
+        })
+
+    }, []);
 
     return (
         <div className={classes.main}>
@@ -376,11 +376,11 @@ const PlanForm = () => {
                 <FloatingLabel controlId="floatingTextarea2">
                     <Form.Control
                     as="textarea"
-                    placeholder="제목을 입력하세요."
+                    placeholder={titleText}
                     style={{ height: '70px' }}
                     onChange={titleChangeHandler} 
                     maxLength={20}
-                />
+                    />
                 </FloatingLabel>
                 <p className={classes.limit}>
                     <span>{inputCount}</span>
@@ -392,11 +392,11 @@ const PlanForm = () => {
                 <FloatingLabel controlId="floatingTextarea2">
                     <Form.Control
                     as="textarea"
-                    placeholder="소개글을 작성하세요."
+                    placeholder={introText}
                     style={{ height: '140px' }}
                     onChange={introChangeHandler} 
                     maxLength={500}
-                />
+                    />
                 </FloatingLabel>
                 <p className={classes.limit}>
                     <span>{inputCount2}</span>
@@ -474,4 +474,4 @@ const PlanForm = () => {
     )
 }
 
-export default PlanForm
+export default UpdateForm

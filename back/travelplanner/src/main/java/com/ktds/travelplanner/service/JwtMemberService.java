@@ -42,7 +42,8 @@ public class JwtMemberService implements MemberService {
 
     @Override
     public Long getCurrentUserId() {
-        return (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("miracle ~~" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (Long)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override

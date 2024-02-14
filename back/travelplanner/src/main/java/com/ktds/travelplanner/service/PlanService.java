@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.ktds.travelplanner.dto.FilePath.IMG_PAHT;
 
@@ -35,9 +36,11 @@ public class PlanService {
 
         List<Theme> themes = themeRepository.findAllByPlanId(planId);
         List<PathInfo> paths = pathRepository.findAllByPlanId(planId);
+//        Boolean star = likeRepository.likeExist(new Like(memberService.getCurrentUserId(), planId));
 
-        response.setThemes(themes);
+        response.setThemes(themes.stream().map(t -> t.getContent()).collect(Collectors.toList()));
         response.setPaths(paths);
+//        response.setStar(star);
 
         return response;
     }

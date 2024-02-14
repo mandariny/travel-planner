@@ -17,9 +17,10 @@ public class PlanDetailResponse {
     private String title;
     private String intro;
     private String image;
-    private List<Theme> themes;
+    private List<String> themes;
     private List<PathInfo> paths;
     private Integer likes;
     private Timestamp updateTime;
     private String memberId;
+    private Boolean star;
 }

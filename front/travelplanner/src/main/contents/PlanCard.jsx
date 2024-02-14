@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './PlanCard.module.css'
 
 const PlanCard = (props) => {
+    const navigate = useNavigate();
+
     return (
         <>
-            <div className={classes.card} onClick={() => {window.location.reload();}}>
+            <div className={classes.card} onClick={() => {navigate("/detail/" + props.id)}}>
                 <img src={props.img} className={classes.img}/>
                 <div className={classes.content}>
                     <div className={classes.title}>{props.title}</div>

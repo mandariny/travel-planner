@@ -1,5 +1,6 @@
 package com.ktds.travelplanner.controller;
 
+import com.ktds.travelplanner.dto.PlanDetailResponse;
 import com.ktds.travelplanner.dto.PlanListResponse;
 import com.ktds.travelplanner.dto.PlanSaveRequest;
 import com.ktds.travelplanner.dto.RequestPartDto;
@@ -13,6 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/me/plan")
 @RequiredArgsConstructor
@@ -21,35 +24,28 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin("*")
 public class MyPlanController {
     private final MyPlanService myPlanService;
-
-//    @PostMapping()
-//    public ResponseEntity<?> savePlan(@RequestParam(value = "title") String title,
-//                                      @RequestParam(value = "intro") String intro,
-//                                      @RequestParam(value = "image", required = false) MultipartFile image,
-//                                      @RequestParam(value = "themes") String[] themes,
-//                                      @RequestParam(value = "placeNames") String[] placeNames,
-//                                      @RequestParam(value = "placeAddrs") String[] placeAddrs,
-//                                      @RequestParam(value = "placeX") Double[] xaxis,
-//                                      @RequestParam(value = "placeY") Double[] yaxis) throws Exception{
-//
-//        log.info("요청 들어옴 : " + title);
-//
-//        if(!image.isEmpty()) checkFileValidation(image);
-//
-//        PlanSaveRequest planSaveRequest = new PlanSaveRequest(title, intro, image, themes, placeNames, placeAddrs, xaxis, yaxis);
-//
-//        System.out.println(planSaveRequest);
-//
-//        myPlanService.savePlan(planSaveRequest, image);
-//
-//        return ResponseEntity.ok().build();
-//    }
+    private final PlanService planService;
 
     @PostMapping()
     public ResponseEntity<?> savePlan(@RequestPart(value = "image") MultipartFile image, @RequestPart(value = "data")RequestPartDto dto) throws Exception{
 
         log.info("요청 들어옴 : " + dto.getTitle());
         log.info("요청 들어옴 addr: " + dto.getPlaceAddrs()[0]);
+
+        if(!image.isEmpty()) checkFileValidation(image);
+
+        PlanSaveRequest planSaveRequest = new PlanSaveRequest(dto.getTitle(), dto.getIntro(), image, dto.getThemes(), dto.getPlaceNames(), dto.getPlaceAddrs());
+
+        System.out.println(planSaveRequest);
+
+        myPlanService.savePlan(planSaveRequest, image);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updatePlan(@RequestPart(value = "id") String planId, @RequestPart(value = "image") MultipartFile image, @RequestPart(value = "data")RequestPartDto dto) throws Exception{
+        myPlanService.deleteMyPlan(Long.parseLong(planId));
 
         if(!image.isEmpty()) checkFileValidation(image);
 
@@ -72,25 +68,6 @@ public class MyPlanController {
         return ResponseEntity.ok().body(myPlanService.findAllLikedPlans());
     }
 
-//    @PutMapping("{id}")
-//    public ResponseEntity<Void> updateMyPlan(@PathVariable("id") Long planId,
-//                                             @RequestParam(value = "title") String title,
-//                                             @RequestParam(value = "intro") String intro,
-//                                             @RequestParam(value = "image") MultipartFile image,
-//                                             @RequestParam(value = "themes") String[] themes,
-//                                             @RequestParam(value = "placeNames") String[] placeNames,
-//                                             @RequestParam(value = "placeAddrs") String[] placeAddrs,
-//                                             @RequestParam(value = "placeX") Double[] xaxis,
-//                                             @RequestParam(value = "placeY") Double[] yaxis) throws Exception{
-//
-//        if(!image.isEmpty()) checkFileValidation(image);
-//
-//        PlanSaveRequest planSaveRequest = new PlanSaveRequest(title, intro, image, themes, placeNames, placeAddrs, xaxis, yaxis);
-//        myPlanService.updateMyPlan(planId, planSaveRequest, image);
-//
-//        return ResponseEntity.ok().build();
-//    }
-
     private void checkFileValidation(MultipartFile file){
         String contentType = file.getContentType();
         if(contentType == null) throw new NonValidFileTypeException();
@@ -98,9 +75,26 @@ public class MyPlanController {
             throw new NonValidFileTypeException();
     }
 
+    @GetMapping("/star/{id}")
+    public ResponseEntity<PlanDetailResponse> getLikeState(@PathVariable("id") String planId){
+        return ResponseEntity.ok().body(myPlanService.getLikeState(Long.parseLong(planId)));
+    }
+
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteMyPlan(@PathVariable("id") Long planId) {
-        myPlanService.deleteMyPlan(planId);
+    public ResponseEntity<Void> deleteMyPlan(@PathVariable("id") String planId) {
+        myPlanService.deleteMyPlan(Long.parseLong(planId));
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/like/{id}")
+    public ResponseEntity<Void> doLikePlan(@PathVariable("id") String planId){
+        planService.doLikePlan(Long.parseLong(planId));
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/clone/{id}")
+    public ResponseEntity<Void> clonePlan(@PathVariable("id") Long planId) throws IOException {
+        planService.clonePlan(planId);
         return ResponseEntity.ok().build();
     }
 }

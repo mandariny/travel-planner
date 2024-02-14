@@ -14,7 +14,6 @@ const LoginModal = (props) => {
                 <Modal.Body>
                     <LoginJoinTab />
                 </Modal.Body>
-                <div className={classes.modal__footer}>확인</div>
                 
             </Modal>
         </>

@@ -5,6 +5,7 @@ import com.ktds.travelplanner.dto.PlanListResponse;
 import com.ktds.travelplanner.exception.NonValidFileTypeException;
 import com.ktds.travelplanner.service.PlanService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,15 @@ import java.io.IOException;
 @RequestMapping("/api/plan")
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 @CrossOrigin("*")
 public class PlanController {
     private final PlanService planService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlanDetailResponse> findPlanDetail(@PathVariable("id") Long planId){
-        return ResponseEntity.ok().body(planService.findPlanDetail(planId));
+    public ResponseEntity<PlanDetailResponse> findPlanDetail(@PathVariable("id") String planId){
+        log.info("detail 정보 " + planId);
+        return ResponseEntity.ok().body(planService.findPlanDetail(Long.parseLong(planId)));
     }
 
     @GetMapping("/like")
@@ -33,18 +36,6 @@ public class PlanController {
     @GetMapping("/current")
     public ResponseEntity<PlanListResponse> findCurrentPlans(){
         return ResponseEntity.ok().body(planService.findCurrentPlans());
-    }
-
-    @GetMapping("/like/{id}")
-    public ResponseEntity<Void> doLikePlan(@PathVariable("id") Long planId){
-        planService.doLikePlan(planId);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/clone/{id}")
-    public ResponseEntity<Void> clonePlan(@PathVariable("id") Long planId) throws IOException {
-        planService.clonePlan(planId);
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/search")

@@ -46,11 +46,11 @@ const CardList = (props) => {
             <div className={classes.contents}>
                 {(props.myPlanOpen) ? (
                     cards.map((value) => (
-                        <MyCard title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
+                        <MyCard id={value.id} title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
                     ))
                 ) : (
                     cards.map((value) => (
-                        <LikedCard title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
+                        <LikedCard id={value.id} title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
                     ))
                 )}
             </div>

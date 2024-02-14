@@ -7,11 +7,11 @@ const SearchPage = () => {
     return (
         <div className={classes.main}>
             <Search/>
-            <div className={classes.result}>전체 결과 00건</div>
+            {/* <div className={classes.result}>전체 결과 00건</div>
             <SearchPlan/>
             <div className={classes.pages}>
                 <PageNumber startNum="1" endNum="5" nowNum="1"/>
-            </div>
+            </div> */}
         </div>
     )
 }

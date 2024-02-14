@@ -6,6 +6,8 @@ import Main from './main/Main';
 import MyPage from './mypage/MyPage';
 import SearchPage from './searchpage/SearchPage';
 import PlanForm from './plan/PlanForm';
+import Detail from './plan/Detail';
+import UpdateForm from './plan/UpdateForm';
 
 function App() {
   return (
@@ -15,8 +17,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main/>} />
           <Route exact path="/mypage" element={<MyPage/>} />
-          <Route exact path="/search" element={<SearchPage />} />
+          <Route exact path="/search/:query" element={<SearchPage />} />
           <Route exact path="/plan" element={<PlanForm/>} />
+          <Route path="/detail/:id" element={<Detail/>} />
+          <Route path='/update/:id' element={<UpdateForm/>} />
         </Routes>
       </BrowserRouter>
     </>

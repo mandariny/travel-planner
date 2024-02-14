@@ -1,15 +1,9 @@
 package com.ktds.travelplanner.service;
 
-import com.ktds.travelplanner.domain.Path;
-import com.ktds.travelplanner.domain.Place;
-import com.ktds.travelplanner.domain.Plan;
-import com.ktds.travelplanner.domain.Theme;
+import com.ktds.travelplanner.domain.*;
 import com.ktds.travelplanner.dto.*;
 import com.ktds.travelplanner.exception.CanNotSavePlanException;
-import com.ktds.travelplanner.repository.MyPlanRepository;
-import com.ktds.travelplanner.repository.PathRepository;
-import com.ktds.travelplanner.repository.PlaceRepository;
-import com.ktds.travelplanner.repository.ThemeRepository;
+import com.ktds.travelplanner.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.ktds.travelplanner.dto.FilePath.IMG_PAHT;
 
@@ -34,6 +29,7 @@ public class MyPlanService {
     private final PathRepository pathRepository;
     private final ThemeRepository themeRepository;
     private final MemberService userService;
+    private final LikeRepository likeRepository;
     private final File uploadDirFile = new File(IMG_PAHT);
 
     @Transactional
@@ -106,5 +102,14 @@ public class MyPlanService {
 
     public void deleteMyPlan(Long planId){
         myPlanRepository.deleteMyPlan(planId);
+    }
+
+    public PlanDetailResponse getLikeState(Long planId) {
+        PlanDetailResponse response = new PlanDetailResponse();
+
+        Boolean star = likeRepository.likeExist(new Like(userService.getCurrentUserId(), planId));
+
+        response.setStar(star);
+        return  response;
     }
 }

@@ -32,7 +32,7 @@ const PopularPlan = () => {
 
 
     const popularCardList = popularCards.map((value) => (
-        <PlanCard title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
+        <PlanCard id={value.id} title={value.title} img={IMAGE_BASE_URL + value.image} star={value.likes}/>
     ));
 
     return (

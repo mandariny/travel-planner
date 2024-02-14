@@ -2,7 +2,12 @@ package com.ktds.travelplanner.dto;
 
 public enum ThemeInfo {
     HEALING("Healing"),
-    ACTIVITY("Activity");
+    ACTIVITY("Activity"),
+    ENTERTAINMENT("Entertainment"),
+    ART("Art"),
+    NATURE("Nature"),
+    HISTORY("History"),
+    FOOD("Food");
 
     private final String themeName;
 
