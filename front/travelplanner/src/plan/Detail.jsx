@@ -96,7 +96,6 @@ const Detail = () => {
 
     return (
         <div className={classes.main}>
-            <div className={classes.plan}>플랜 작성</div>
             <div>
                 <div className={classes.subject}>제목</div>
                 {title}
@@ -107,7 +106,8 @@ const Detail = () => {
             </div>
             <div>
                 <div className={classes.subject}>대표 사진</div>
-                <img src={IMAGE_BASE_URL + image}/>
+                
+                <img src={'../' + IMAGE_BASE_URL + image}  className={classes.imgimg}/>
             </div>
             <div>
                 <div className={classes.subject}>여행 테마</div>

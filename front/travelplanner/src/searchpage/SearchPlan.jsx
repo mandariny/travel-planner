@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import classes from './SearchPlan.module.css'
 import PlanCard from "../main/contents/PlanCard";
 
-const SearchPlan = () => {
+const SearchPlan = (props) => {
     const [searchCards, setSearchCards] = useState([
         {title: "1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title1title", content: "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111", img: "img/jjanggu.jpg", star: "1234"},
         {title: "2title", content: "222222222222222", img: "img/jjanggu.jpg", star: "1111"},
@@ -11,8 +11,24 @@ const SearchPlan = () => {
         {title: "5title", content: "555555555555555", img: "img/jjanggu.jpg", star: "42"}
     ])
 
+    useEffect(() => {
+        const fetchSearch = async () => {
+            await fetch('http://localhost:8080/api/plan/search?q=' + props.query).then((res) => {
+                if(res.ok){
+                    res.json().then((res2) => {
+                        setSearchCards(res2.plans);
+                        console.log(JSON.stringify(res2.plans));
+                    })
+                }
+            });
+        }
+        fetchSearch().catch(error => {
+            console.log(error);
+        })
+    }, []);
+
     const searchCardList = searchCards.map((value) => (
-        <PlanCard title={value.title} img={value.img} star={value.star}/>
+        <PlanCard id = {value.id} title={value.title} img={'../img/' + value.image} star={value.likes}/>
     ));
 
     return (

@@ -4,6 +4,7 @@ import classes from './PlanCard.module.css'
 const PlanCard = (props) => {
     const navigate = useNavigate();
 
+    console.log("LDKJFL" + props.img)
     return (
         <>
             <div className={classes.card} onClick={() => {navigate("/detail/" + props.id)}}>
