@@ -1,0 +1,10 @@
+.box {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.my{
+    text-decoration: none;
+    color: black
+}

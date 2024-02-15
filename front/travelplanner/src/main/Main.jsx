@@ -12,6 +12,8 @@ const Main = () => {
     return (
         <div className={classes.main}>
             <Search/>
+            <PopularPlan/>
+            <CurrentPlan/>
             { (sessionStorage.getItem('USER') !== null) ? (
                 <div className={classes.add} onClick={() => {
                     navigate("/plan")
@@ -19,9 +21,6 @@ const Main = () => {
                     <NewPlan/>
                 </div>
             ): <></>}
-            
-            <PopularPlan/>
-            <CurrentPlan/>
         </div>
     )
 }

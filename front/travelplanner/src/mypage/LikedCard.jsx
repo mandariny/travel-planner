@@ -7,7 +7,6 @@ const LikedCard = (props) => {
     return (
         <div className={classes.total}>
             <div className={classes.line}>
-                <div className={classes.button}>삭제</div>
             </div>
             <div className={classes.card} onClick={() => {navigate("/detail/" + props.id)}}>
                 <img src={props.img} className={classes.img}/>

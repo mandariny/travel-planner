@@ -28,8 +28,8 @@ const MyCard = (props) => {
     return (
         <div className={classes.total}>
             <div className={classes.line}>
-                <div className={classes.button} onClick={updatePlan}>수정</div>
-                <div className={classes.button}>|</div>
+                {/* <div className={classes.button} onClick={updatePlan}>수정</div>
+                <div className={classes.button}>|</div> */}
                 <div className={classes.button} onClick={deletePlan}>삭제</div>
             </div>
             <div className={classes.card} onClick={() => {navigate("/detail/" + props.id)}}>

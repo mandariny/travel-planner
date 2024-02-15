@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import classes from '../HeaderButton.module.css'
 
 const LogoutButton = () => {
     return (
@@ -8,7 +9,7 @@ const LogoutButton = () => {
 
                 window.location.reload();
             }}>
-                <Link to="/">로그아웃</Link>
+                <Link to="/" className={classes.my}>로그아웃</Link>
             </div>
             
         </>

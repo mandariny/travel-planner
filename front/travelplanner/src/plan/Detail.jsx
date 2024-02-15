@@ -96,6 +96,7 @@ const Detail = () => {
 
     return (
         <div className={classes.main}>
+            
             <div>
                 <div className={classes.subject}>제목</div>
                 {title}
@@ -104,51 +105,69 @@ const Detail = () => {
                 <div className={classes.subject}>여행지 소개</div>
                 {intro}
             </div>
-            <div>
-                <div className={classes.subject}>대표 사진</div>
+            <div className={classes.first}>
+                <div className={classes.second}>
+
+                    <div>
+                        <div className={classes.subject}>대표 사진</div>
+                        
+                        <img src={'../' + IMAGE_BASE_URL + image}  className={classes.imgimg}/>
+                    </div>
+                    <div>
+                        <div className={classes.subject}>여행 테마</div>
+                        <ToggleButtonGroup type="checkbox" value={themeValue}>
+                            <ToggleButton id="tbg-btn-1" value={"Healing"} className={themeValue.includes("Healing") ? classes.clicked : classes.unclicked}>
+                                힐링
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-2" value={"Activity"} className={themeValue.includes("Activity") ? classes.clicked : classes.unclicked}>
+                                액티비티
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-3" value={"Entertainment"} className={themeValue.includes("Entertainment") ? classes.clicked : classes.unclicked}>
+                                엔터테인먼트
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-4" value={"Art"} className={themeValue.includes("Art") ? classes.clicked : classes.unclicked}>
+                                예술
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-5" value={"Nature"} className={themeValue.includes("Nature") ? classes.clicked : classes.unclicked}>
+                                자연
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-6" value={"History"} className={themeValue.includes("History") ? classes.clicked : classes.unclicked}>
+                                역사
+                            </ToggleButton>
+                            <ToggleButton id="tbg-btn-7" value={"Food"} className={themeValue.includes("Food") ? classes.clicked : classes.unclicked}>
+                                음식
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </div>
+
+
+
+                </div>
+                <div className={classes.third}>
+                    <div className={classes.subject}>여행 경로</div>
+                    {path.map((item, index) => (
+                        <ul key={index}>
+                            <li className={classes.title}>{item.name}</li>
+                            <li>{item.addr}</li>
+                        </ul>
+                    ))}
+
+                </div>
                 
-                <img src={'../' + IMAGE_BASE_URL + image}  className={classes.imgimg}/>
+                
             </div>
-            <div>
-                <div className={classes.subject}>여행 테마</div>
-                <ToggleButtonGroup type="checkbox" value={themeValue}>
-                    <ToggleButton id="tbg-btn-1" value={"Healing"} className={themeValue.includes("Healing") ? classes.clicked : classes.unclicked}>
-                        힐링
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-2" value={"Activity"} className={themeValue.includes("Activity") ? classes.clicked : classes.unclicked}>
-                        액티비티
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-3" value={"Entertainment"} className={themeValue.includes("Entertainment") ? classes.clicked : classes.unclicked}>
-                        엔터테인먼트
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-4" value={"Art"} className={themeValue.includes("Art") ? classes.clicked : classes.unclicked}>
-                        예술
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-5" value={"Nature"} className={themeValue.includes("Nature") ? classes.clicked : classes.unclicked}>
-                        자연
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-6" value={"History"} className={themeValue.includes("History") ? classes.clicked : classes.unclicked}>
-                        역사
-                    </ToggleButton>
-                    <ToggleButton id="tbg-btn-7" value={"Food"} className={themeValue.includes("Food") ? classes.clicked : classes.unclicked}>
-                        음식
-                    </ToggleButton>
-                </ToggleButtonGroup>
+
+            <div className={classes.fourth}>
+                <div onClick={starClick}  className={classes.imoji}>
+                    {star? '🧡' : '🤍'}
+                </div>
+                <div onClick={clone} className={classes.copy}>
+                    {sessionStorage.getItem('USER') != null ? '복제' : ''}
+                </div>
             </div>
-            <div className={classes.subject}>여행 경로</div>
-            {path.map((item, index) => (
-                <ul key={index}>
-                    <li>{item.name}</li>
-                    <li>{item.addr}</li>
-                </ul>
-            ))}
             
-            <div onClick={starClick}>
-                {star? '🧡' : '🤍'}
-            </div>
-            <div onClick={clone}>
-                {sessionStorage.getItem('USER') != null ? '복제' : ''}
-            </div>
+            
+            
             
         </div>
     )
