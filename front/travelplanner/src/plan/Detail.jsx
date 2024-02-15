@@ -44,10 +44,17 @@ const Detail = () => {
 
         const fetchDetailInfo2 = async () => {
             console.log("호출 됏다!!!")
-            await fetch ('/api/me/plan/star/' + id).then((res) => {
+            await fetch ('http://localhost:8080/api/me/plan/star/' + id, {
+                method:'GET',
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('USER')}`
+                }
+            })
+            .then((res) => {
                 if(res.ok){
                     res.json().then((res2) => {
                         setStar(res2.star)
+                        console.log("star : " + res2.star)
                     })
                 }
             })
@@ -55,6 +62,7 @@ const Detail = () => {
         if(sessionStorage.getItem('USER') != null){
             fetchDetailInfo2().catch(error => {
                 console.log(error);
+                console.log("eeeeeeee")
             })
         }
 

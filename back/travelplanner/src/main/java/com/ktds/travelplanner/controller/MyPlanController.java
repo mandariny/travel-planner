@@ -77,6 +77,7 @@ public class MyPlanController {
 
     @GetMapping("/star/{id}")
     public ResponseEntity<PlanDetailResponse> getLikeState(@PathVariable("id") String planId){
+        log.info("star controller " + planId);
         return ResponseEntity.ok().body(myPlanService.getLikeState(Long.parseLong(planId)));
     }
 

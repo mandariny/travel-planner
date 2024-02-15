@@ -109,6 +109,8 @@ public class MyPlanService {
 
         Boolean star = likeRepository.likeExist(new Like(userService.getCurrentUserId(), planId));
 
+        log.info("star~~~~" + star);
+
         response.setStar(star);
         return  response;
     }
